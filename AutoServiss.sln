@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoServiss.Server", "Server\AutoServiss.Server.csproj", "{9865AF64-8ACE-49F7-8C64-F39BA1C53EEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoServiss.Server", "Server\AutoServiss.Server.csproj", "{9865AF64-8ACE-49F7-8C64-F39BA1C53EEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoServiss.Client", "Client\AutoServiss.Client.csproj", "{97E5C6D4-B497-4338-939E-67884F243C79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoServiss.Client", "Client\AutoServiss.Client.csproj", "{97E5C6D4-B497-4338-939E-67884F243C79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoServiss.Shared", "Shared\AutoServiss.Shared.csproj", "{ACC28AC4-88CA-4A38-BBE5-617C0270E636}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoServiss.Shared", "Shared\AutoServiss.Shared.csproj", "{ACC28AC4-88CA-4A38-BBE5-617C0270E636}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoServiss.Application", "Application\AutoServiss.Application.csproj", "{860769E9-D5D1-4E1A-AABE-87B120D84B23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoServiss.Application", "Application\AutoServiss.Application.csproj", "{860769E9-D5D1-4E1A-AABE-87B120D84B23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoServiss.Persistence", "Persistence\AutoServiss.Persistence.csproj", "{E783C10E-D6F1-40A7-86E6-324A8A0AB80C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoServiss.Persistence", "Persistence\AutoServiss.Persistence.csproj", "{E783C10E-D6F1-40A7-86E6-324A8A0AB80C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

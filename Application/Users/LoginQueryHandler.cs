@@ -4,6 +4,12 @@ using AutoServiss.Persistence;
 using AutoServiss.Shared.Users;
 using LiteDB;
 using MediatR;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,10 +18,12 @@ namespace AutoServiss.Application.Users
     public class LoginQueryHandler : IRequestHandler<LoginQuery, LoginResult>
     {
         private readonly LiteDatabase _db;
+        private readonly IConfiguration _configuration;
 
-        public LoginQueryHandler(ILiteDbContext dbContext)
+        public LoginQueryHandler(ILiteDbContext dbContext, IConfiguration configuration)
         {
             _db = dbContext.Database;
+            _configuration = configuration;
         }
 
         public Task<LoginResult> Handle(LoginQuery request, CancellationToken cancellationToken)
@@ -31,7 +39,24 @@ namespace AutoServiss.Application.Users
             if (user != null)
             {
                 var valid = PasswordHash.ValidatePassword(request.Password, user.PasswordHash);
-                if (valid) result.Message = "OK";
+                if (valid)
+                {
+                    var tokenHandler = new JwtSecurityTokenHandler();
+                    var key = Encoding.ASCII.GetBytes(_configuration["AppSettings:SecretKey"]);
+                    var tokenDescriptor = new SecurityTokenDescriptor
+                    {
+                        Subject = new ClaimsIdentity(new Claim[]
+                        {
+                            new Claim(ClaimTypes.Email, user.Email),
+                            new Claim(ClaimTypes.Name, user.FullName)
+                        }),
+                        Expires = DateTime.UtcNow.AddDays(7),
+                        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                    };
+                    var token = tokenHandler.CreateToken(tokenDescriptor);
+                    result.Token = tokenHandler.WriteToken(token);
+                    result.Message = "OK";
+                }
             }          
 
             return Task.FromResult(result);

@@ -25,11 +25,10 @@ namespace AutoServiss.Application.Users
             var list = users.Select(u => new UserListModel
             {
                 Id = u.Id,
-                FullName = u.FullName,
                 Email = u.Email,
                 Enabled = u.Enabled
             })
-            .OrderBy(u => u.FullName)
+            .OrderBy(u => u.Email)
             .ToArray();
 
             return Task.FromResult(list);

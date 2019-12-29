@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.IO;
 using System.Linq;
@@ -31,9 +30,10 @@ namespace AutoServiss.Server
 
         public void ConfigureServices(IServiceCollection services)
         {
-            IdentityModelEventSource.ShowPII = true;
+            //IdentityModelEventSource.ShowPII = true;
 
             services.AddDataProtection()
+                .SetApplicationName("autoserviss")
                 .PersistKeysToFileSystem(new DirectoryInfo(Configuration["AppSettings:DataProtectionKeysPath"]));
 
             services.AddPersistence();
@@ -50,11 +50,12 @@ namespace AutoServiss.Server
                 options.SaveToken = true;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    // The signing key must match!
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["AppSettings:SecretKey"])),
                     ValidateIssuer = false,
-                    ValidateAudience = false
+                    ValidateAudience = false,
+                    NameClaimType = "sub",
+                    RoleClaimType = "role"
                 };
             });
 

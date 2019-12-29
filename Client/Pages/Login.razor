@@ -8,7 +8,10 @@
 @if (ShowErrors)
 {
     <div class="alert alert-danger" role="alert">
-        <p>@Error</p>
+        @foreach (var e in Errors)
+        {
+            <p>@e</p>
+        }        
     </div>
 }
 
@@ -35,10 +38,9 @@
 </div>
 
 @code {
-
-    private LoginQuery loginModel = new LoginQuery();
+    private LoginQuery loginModel = new LoginQuery { Email = "tests@tests.lv", Password = "Parole.123" };
     private bool ShowErrors;
-    private string Error = "";
+    private string[] Errors = Array.Empty<string>();
 
     private async Task HandleLogin()
     {
@@ -46,15 +48,14 @@
 
         var result = await AuthService.Login(loginModel);
 
-        if (result.Message == "OK")
+        if (result.Errors == null)
         {
             NavigationManager.NavigateTo("/");
         }
         else
         {
-            Error = result.Message;
+            Errors = result.Errors;
             ShowErrors = true;
         }
     }
-
 }

@@ -23,7 +23,6 @@ namespace AutoServiss.Application.Users
             var collection = _db.GetCollection<User>("Users");
             collection.Insert(new User
             {
-                FullName = request.FullName,
                 Email = request.Email,
                 PasswordHash = PasswordHash.HashPassword(request.Password),
                 Enabled = request.Enabled
@@ -31,7 +30,7 @@ namespace AutoServiss.Application.Users
 
             return Task.FromResult(new UserCreateResult
             {
-                Message = $"Izveidots jauns lietotājs \"{request.FullName}\""
+                Message = $"Izveidots jauns lietotājs \"{request.Email}\""
             });
         }
     }

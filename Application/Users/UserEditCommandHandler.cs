@@ -27,7 +27,6 @@ namespace AutoServiss.Application.Users
                 throw new NotFoundException("Lietotājs neeksistē");
             }
 
-            user.FullName = request.FullName;
             user.Email = request.Email;
             user.Enabled = request.Enabled;
 
@@ -35,7 +34,7 @@ namespace AutoServiss.Application.Users
 
             return Task.FromResult(new UserEditResult
             {
-                Message = $"Atjaunināti lietotāja \"{request.FullName}\" dati"
+                Message = $"Atjaunināti lietotāja \"{request.Email}\" dati"
             });
         }
     }

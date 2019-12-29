@@ -15,7 +15,6 @@ namespace AutoServiss.Application.Users
         {
             _db = dbContext.Database;
 
-            RuleFor(x => x.FullName).NotEmpty().WithMessage("Nav norādīts Pilns vārds");
             RuleFor(x => x.Email)
                 .Cascade(CascadeMode.StopOnFirstFailure)
                 .NotEmpty().WithMessage("Nav norādīta E-pasta adrese")

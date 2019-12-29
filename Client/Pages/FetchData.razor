@@ -15,7 +15,6 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Pilns vārds</th>
                 <th>E-pasta adrese</th>
                 <th>Aktīvs</th>
             </tr>
@@ -24,7 +23,6 @@ else
             @foreach (var u in users)
             {
                 <tr>
-                    <td>@u.FullName</td>
                     <td>@u.Email</td>
                     <td>@u.Enabled</td>
                 </tr>

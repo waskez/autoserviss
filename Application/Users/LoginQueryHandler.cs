@@ -30,7 +30,7 @@ namespace AutoServiss.Application.Users
         {
             var result = new LoginResult
             {
-                Message = "Nepareiza e-pasta adrese vai parole"
+                Errors = new[] { "Nepareiza e-pasta adrese vai parole" }
             };
 
             var collection = _db.GetCollection<User>("Users");
@@ -47,15 +47,14 @@ namespace AutoServiss.Application.Users
                     {
                         Subject = new ClaimsIdentity(new Claim[]
                         {
-                            new Claim(ClaimTypes.Email, user.Email),
-                            new Claim(ClaimTypes.Name, user.FullName)
+                            new Claim("sub", user.Email)
                         }),
                         Expires = DateTime.UtcNow.AddDays(7),
                         SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
                     };
                     var token = tokenHandler.CreateToken(tokenDescriptor);
                     result.Token = tokenHandler.WriteToken(token);
-                    result.Message = "OK";
+                    result.Errors = null;
                 }
             }          
 

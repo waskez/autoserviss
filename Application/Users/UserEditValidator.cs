@@ -21,8 +21,7 @@ namespace AutoServiss.Application.Users
                         .Cascade(CascadeMode.StopOnFirstFailure)
                         .NotEmpty().WithMessage("Nav norādīta E-pasta adrese")
                         .Must(EmailMustUnique).WithMessage("Lietotājs ar šādu e-pasta adresi jau eksistē");
-                });
-            RuleFor(x => x.FullName).NotEmpty().WithMessage("Nav norādīts Pilns vārds");            
+                });           
         }
 
         private bool EmailMustUnique(UserEditCommand command, string email)
